@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Content from "@/components/Content";
 
 export default function Home() {
   return (
@@ -7,6 +8,10 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Content>
+          {/* Content will be added here */}
+          <div></div>
+        </Content>
       </main>
     </div>
   );
