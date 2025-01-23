@@ -4,7 +4,7 @@
 
 :root {
   --moss-green: #424A26;
-  --forest-green: #424A26;
+  --forest-green: #2A3019;
   --dark-brown: #A47E4F;
   --darker-brown: #59452C;
   --light-brown: #D7BE69;
@@ -14,7 +14,7 @@
   --day-card: #FFFFFF;
   --day-text: #000000;
   --background: var(--light-brown);
-  --foreground: #171717;
+  --foreground: #2A3019;
 }
 
 body {
