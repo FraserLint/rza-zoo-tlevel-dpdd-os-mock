@@ -2,11 +2,24 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <nav className="bg-[var(--moss-green)] px-0 py-2 shadow-lg rounded-lg border-4 border-[var(--forest-green)]">
@@ -76,13 +89,40 @@ export default function Navbar() {
           </button>
           {isLoggedIn ? (
             <div className="flex items-center gap-4">
-              <div className="relative w-14 h-14 rounded-full overflow-hidden border-4 border-[var(--darker-brown)] cursor-pointer shadow-md">
-                <Image
-                  src="/temp_profile_pic.png"
-                  alt="Profile"
-                  layout="fill"
-                  objectFit="cover"
-                />
+              <div className="relative" ref={dropdownRef}>
+                <div 
+                  className="relative w-14 h-14 rounded-full overflow-hidden border-4 border-[var(--darker-brown)] cursor-pointer shadow-md"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  <Image
+                    src="/temp_profile_pic.png"
+                    alt="Profile"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border-4 border-[var(--forest-green)] z-50">
+                    <div className="p-4 border-b border-[var(--forest-green)]">
+                      <h3 className="text-lg font-bold text-[var(--forest-green)]">User Profile</h3>
+                      <p className="text-[var(--day-subtext)]">John Doe</p>
+                      <p className="text-[var(--day-subtext)]">john.doe@example.com</p>
+                    </div>
+                    <div className="p-4">
+                      <h4 className="text-md font-bold text-[var(--forest-green)] mb-2">Your Bookings</h4>
+                      <div className="space-y-2">
+                        <div className="p-2 bg-[var(--light-brown)] rounded-lg">
+                          <p className="text-sm font-semibold">Junior Zookeeper Academy</p>
+                          <p className="text-xs text-[var(--day-subtext)]">Date: July 15, 2024</p>
+                        </div>
+                        <div className="p-2 bg-[var(--light-brown)] rounded-lg">
+                          <p className="text-sm font-semibold">Wildlife Photography Workshop</p>
+                          <p className="text-xs text-[var(--day-subtext)]">Date: August 1, 2024</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               <button
                 onClick={() => setIsLoggedIn(false)}
