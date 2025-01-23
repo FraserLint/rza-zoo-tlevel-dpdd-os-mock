@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,15 +23,45 @@ export default function Navbar() {
             <Link href="/" className="text-[var(--day-card)] hover:text-[var(--light-brown)] transition-colors">
               Home
             </Link>
-            <Link href="/our-animals" className="text-[var(--day-card)] hover:text-[var(--light-brown)] transition-colors">
+            <button
+              onClick={() => {
+                const pathname = window.location.pathname;
+                if (pathname !== '/') {
+                  window.location.href = '/?scrollTo=our-animals';
+                } else {
+                  document.getElementById('our-animals')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-[var(--day-card)] hover:text-[var(--light-brown)] transition-colors"
+            >
               Our Animals
-            </Link>
-            <Link href="/education" className="text-[var(--day-card)] hover:text-[var(--light-brown)] transition-colors">
+            </button>
+            <button
+              onClick={() => {
+                const pathname = window.location.pathname;
+                if (pathname !== '/') {
+                  window.location.href = '/?scrollTo=education';
+                } else {
+                  document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-[var(--day-card)] hover:text-[var(--light-brown)] transition-colors"
+            >
               Education
-            </Link>
-            <Link href="/about-us" className="text-[var(--day-card)] hover:text-[var(--light-brown)] transition-colors">
+            </button>
+            <button
+              onClick={() => {
+                const pathname = window.location.pathname;
+                if (pathname !== '/') {
+                  window.location.href = '/?scrollTo=about-us';
+                } else {
+                  document.getElementById('about-us')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-[var(--day-card)] hover:text-[var(--light-brown)] transition-colors"
+            >
               About Us
-            </Link>
+            </button>
           </div>
         </div>
 

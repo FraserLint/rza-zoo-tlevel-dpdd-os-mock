@@ -41,7 +41,7 @@ const animals: AnimalCard[] = [
 
 export default function OurAnimals() {
   return (
-    <div className="py-8 px-4">
+    <div id="our-animals" className="py-8 px-4">
       <div className="bg-white/90 p-8 rounded-lg shadow-lg max-w-xl mx-auto border-4 border-[var(--forest-green)] mb-8">
         <h2 className="text-4xl font-bold text-center text-[var(--day-text)]">Our Animals</h2>
       </div>
