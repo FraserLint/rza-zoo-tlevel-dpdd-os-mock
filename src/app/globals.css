@@ -3,15 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --moss-green: #424A26;
+  --forest-green: #424A26;
+  --dark-brown: #A47E4F;
+  --darker-brown: #59452C;
+  --light-brown: #D7BE69;
+  --day-subtext: #4D4D4D;
+  --universal-gray: #CFCFCF;
+  --day-border: #D9D9D9;
+  --day-card: #FFFFFF;
+  --day-text: #000000;
+  --background: var(--light-brown);
   --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
