@@ -20,7 +20,7 @@ export default function SignUp() {
                         <div className="flex items-center justify-center p-8">
                             <AuthForm mode="signup" onSubmit={handleSubmit} />
                         </div>
-                        <div className="relative h-[600px] hidden md:block border-l-4 border-[var(--forest-green)]">
+                        <div className="relative hidden md:block border-l-4 border-[var(--forest-green)]" style={{ minHeight: '100%' }}>
                             <Image
                                 src="/signup/bigpic.jpg"
                                 alt="Giraffe feeding experience"
