@@ -8,7 +8,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <nav className="bg-[var(--moss-green)] px-0 py-2 shadow-lg rounded-lg border-2 border-[var(--forest-green)]">
+    <nav className="bg-[var(--moss-green)] px-0 py-2 shadow-lg rounded-lg border-4 border-[var(--forest-green)]">
       <div className="max-w-[95%] mx-auto flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Image
@@ -38,12 +38,12 @@ export default function Navbar() {
           <div className="text-[var(--day-card)] flex items-center gap-1">
             Credits: <span className="font-semibold">23</span> 🍌
           </div>
-          <button className="bg-[var(--light-brown)] text-[var(--day-text)] px-6 py-2 rounded-md hover:bg-[var(--dark-brown)] transition-colors border-2 border-[var(--darker-brown)] shadow-md">
+          <button className="bg-[var(--light-brown)] text-[var(--day-text)] px-6 py-2 rounded-md hover:bg-[var(--dark-brown)] transition-colors border-4 border-[var(--darker-brown)] shadow-md">
             BOOK NOW
           </button>
           {isLoggedIn ? (
             <div className="flex items-center gap-4">
-              <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[var(--darker-brown)] cursor-pointer shadow-md">
+              <div className="relative w-14 h-14 rounded-full overflow-hidden border-4 border-[var(--darker-brown)] cursor-pointer shadow-md">
                 <Image
                   src="/temp_profile_pic.png"
                   alt="Profile"
