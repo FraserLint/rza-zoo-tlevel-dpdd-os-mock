@@ -66,9 +66,11 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="text-[var(--day-card)] flex items-center gap-1">
-            Credits: <span className="font-semibold">23</span> 🍌
-          </div>
+          {isLoggedIn && (
+            <div className="text-[var(--day-card)] flex items-center gap-1">
+              Credits: <span className="font-semibold">23</span> 🍌
+            </div>
+          )}
           <button className="bg-[var(--light-brown)] text-[var(--day-text)] px-6 py-2 rounded-md hover:bg-[var(--dark-brown)] transition-colors border-4 border-[var(--darker-brown)] shadow-md">
             BOOK NOW
           </button>
