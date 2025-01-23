@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Content from "@/components/Content";
+import OurAnimals from "@/components/OurAnimals";
 
 export default function Home() {
   return (
@@ -9,8 +10,7 @@ export default function Home() {
       <main>
         <Hero />
         <Content>
-          {/* Content will be added here */}
-          <div></div>
+          <OurAnimals />
         </Content>
       </main>
     </div>
