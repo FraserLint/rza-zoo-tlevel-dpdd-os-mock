@@ -8,7 +8,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <nav className="bg-[var(--moss-green)] px-4 py-2 shadow-lg">
+    <nav className="bg-[var(--moss-green)] px-4 py-2 shadow-lg rounded-lg border-2 border-[var(--forest-green)]">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Image
