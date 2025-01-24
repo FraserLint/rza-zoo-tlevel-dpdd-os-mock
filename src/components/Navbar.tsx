@@ -125,9 +125,12 @@ export default function Navbar() {
               Credits: <span className="font-semibold">23</span> 🍌
             </div>
           )}
-          <button className="bg-[var(--light-brown)] text-[var(--day-text)] font-bold px-6 py-2 rounded-md hover:bg-[var(--dark-brown)] transition-colors border-4 border-[var(--darker-brown)] shadow-md">
+          <Link
+            href="/book"
+            className="bg-[var(--light-brown)] text-[var(--day-text)] font-bold px-6 py-2 rounded-md hover:bg-[var(--dark-brown)] transition-colors border-4 border-[var(--darker-brown)] shadow-md inline-block"
+          >
             BOOK NOW
-          </button>
+          </Link>
           {user ? (
             <div className="flex items-center gap-4">
               <div className="relative" ref={dropdownRef}>
