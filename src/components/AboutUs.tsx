@@ -68,7 +68,7 @@ export default function AboutUs() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="p-8">
+                  <div className="p-8 border-t-4 border-[var(--forest-green)]">
                     <h3 className="text-3xl font-bold text-[var(--forest-green)] mb-4">
                       {item.title}
                     </h3>
@@ -80,7 +80,7 @@ export default function AboutUs() {
               ))}
             </div>
           </div>
-          <div className="flex justify-between items-center p-4 bg-[var(--dark-brown)]">
+          <div className="flex justify-between items-center border-t-4 border-[var(--forest-green)] p-4 bg-[var(--dark-brown)]">
             <button
               onClick={prevSlide}
               className="px-6 py-2 bg-[var(--forest-green)] text-white rounded-lg hover:bg-[var(--day-text)] transition-colors"
