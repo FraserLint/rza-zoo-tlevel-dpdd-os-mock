@@ -5,9 +5,26 @@ import AuthForm from '@/components/AuthForm';
 import Content from '@/components/Content';
 
 export default function SignUp() {
-  const handleSubmit = (data: { fullName: string; email: string; password: string }) => {
-    // Handle sign-up logic here
-    console.log('Sign up data:', data);
+  const handleSubmit = async (data: { fullName: string; email: string; password: string }) => {
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to sign up');
+      }
+
+      // Redirect to home page after successful signup
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Signup error:', error);
+      alert(error instanceof Error ? error.message : 'Failed to sign up');
+    }
   };
 
   return (
