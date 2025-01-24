@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface AuthFormProps {
   mode: 'signin' | 'signup';
@@ -141,6 +142,21 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
         >
           {mode === 'signin' ? 'Sign In' : 'Create Account'}
         </button>
+        {mode === 'signin' ? (
+          <p className="text-center mt-4 text-[var(--day-subtext)]">
+            Don't have an account?{' '}
+            <Link href="/signup" className="text-[var(--forest-green)] hover:underline">
+              Sign up here
+            </Link>
+          </p>
+        ) : (
+          <p className="text-center mt-4 text-[var(--day-subtext)]">
+            Already have an account?{' '}
+            <Link href="/signin" className="text-[var(--forest-green)] hover:underline">
+              Sign in here
+            </Link>
+          </p>
+        )}
       </form>
     </div>
   );
