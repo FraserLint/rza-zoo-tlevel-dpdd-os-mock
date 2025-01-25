@@ -28,6 +28,4 @@ model Booking {
   email           String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-
-  @@unique([email, visitDate], name: "unique_booking")
 }

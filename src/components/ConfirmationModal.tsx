@@ -48,6 +48,9 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           const data = await response.json();
 
           if (!response.ok) {
+            if (data.error === 'DUPLICATE_BOOKING') {
+              throw new Error('You already have a booking for this date. Please choose a different date.');
+            }
             throw new Error(data.error || 'Failed to save booking');
           }
 
