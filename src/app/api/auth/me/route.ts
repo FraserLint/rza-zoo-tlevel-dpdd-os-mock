@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
 import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/auth';
+import prisma from '@/lib/prisma';
 
 export async function GET() {
   try {
@@ -23,12 +23,13 @@ export async function GET() {
       );
     }
 
+    // Fetch user data including their bookings
     const user = await prisma.user.findUnique({
       where: { id: payload.userId },
-      select: {
-        id: true,
-        fullName: true,
-        email: true
+      include: {
+        bookings: {
+          orderBy: { visitDate: 'asc' }
+        }
       }
     });
 
@@ -39,9 +40,16 @@ export async function GET() {
       );
     }
 
-    return NextResponse.json(user);
+    // Return user data with bookings
+    return NextResponse.json({
+      id: user.id,
+      fullName: user.fullName,
+      email: user.email,
+      bookings: user.bookings
+    });
+
   } catch (error) {
-    console.error('Get user error:', error);
+    console.error('Auth check error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

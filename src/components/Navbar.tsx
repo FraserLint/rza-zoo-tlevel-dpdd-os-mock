@@ -5,15 +5,29 @@ import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
+type TicketDetails = {
+  [key: string]: number;
+};
+
+type Booking = {
+  id: string;
+  visitDate: string;
+  ticketDetails: TicketDetails;
+  total: number;
+};
+
 type User = {
   id: string;
   fullName: string;
   email: string;
+  bookings?: Booking[];
 };
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoadingBookings, setIsLoadingBookings] = useState(false);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -23,13 +37,30 @@ export default function Navbar() {
         const response = await fetch('/api/auth/me');
         if (response.ok) {
           const userData = await response.json();
-          setUser(userData);
+          setUser({
+            id: userData.id,
+            fullName: userData.fullName,
+            email: userData.email
+          });
+          // Process bookings data and ensure totals are numbers
+          if (userData.bookings && Array.isArray(userData.bookings)) {
+            const processedBookings = userData.bookings.map((booking: { totalAmount?: string | number, ticketDetails?: TicketDetails }) => ({
+              ...booking,
+              total: typeof booking.totalAmount === 'string' ? parseFloat(booking.totalAmount) : booking.totalAmount || 0,
+              ticketDetails: booking.ticketDetails || {}
+            }));
+            setBookings(processedBookings);
+          } else {
+            setBookings([]);
+          }
         } else {
           setUser(null);
+          setBookings([]);
         }
       } catch (error) {
         console.error('Auth check failed:', error);
         setUser(null);
+        setBookings([]);
       }
     };
 
@@ -153,14 +184,37 @@ export default function Navbar() {
                     <div className="p-4">
                       <h4 className="text-md font-bold text-[var(--forest-green)] mb-2">Your Bookings</h4>
                       <div className="space-y-2">
-                        <div className="p-2 bg-[var(--light-brown)] rounded-lg">
-                          <p className="text-sm font-semibold">Junior Zookeeper Academy</p>
-                          <p className="text-xs text-[var(--day-subtext)]">Date: July 15, 2024</p>
-                        </div>
-                        <div className="p-2 bg-[var(--light-brown)] rounded-lg">
-                          <p className="text-sm font-semibold">Wildlife Photography Workshop</p>
-                          <p className="text-xs text-[var(--day-subtext)]">Date: August 1, 2024</p>
-                        </div>
+                        {isLoadingBookings ? (
+                          <p className="text-sm text-[var(--day-subtext)]">Loading bookings...</p>
+                        ) : bookings.length > 0 ? (
+                          bookings.map((booking: Booking) => (
+                            <div key={booking.id} className="p-3 bg-[var(--light-brown)] rounded-lg">
+                              <div className="space-y-1">
+                                <p className="text-sm font-semibold">
+                                  {Object.entries(booking.ticketDetails).map(([type, count], index, arr) => (
+                                    <span key={type}>
+                                      {count} × {type.charAt(0).toUpperCase() + type.slice(1)}
+                                      {index < arr.length - 1 ? ', ' : ''}
+                                    </span>
+                                  ))}
+                                </p>
+                                <p className="text-xs text-[var(--day-subtext)]">
+                                  Visit Date: {new Date(booking.visitDate).toLocaleDateString('en-GB', {
+                                    weekday: 'long',
+                                    day: 'numeric',
+                                    month: 'long',
+                                    year: 'numeric'
+                                  })}
+                                </p>
+                                <p className="text-xs text-[var(--forest-green)] font-semibold">
+                                  Total Paid: £{booking.total.toFixed(2)}
+                                </p>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="text-sm text-[var(--day-subtext)]">No bookings found</p>
+                        )}
                       </div>
                     </div>
                   </div>
