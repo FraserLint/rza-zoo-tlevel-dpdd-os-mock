@@ -1,18 +1,6 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-import { verifyPassword, createToken, setAuthCookie } from '@/lib/auth';
-
-// Use a single PrismaClient instance
-let prisma: PrismaClient;
-
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient();
-} else {
-  if (!(global as any).prisma) {
-    (global as any).prisma = new PrismaClient();
-  }
-  prisma = (global as any).prisma;
-}
+import prisma from '@/lib/prisma';
+import { verifyPassword, createToken } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {

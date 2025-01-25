@@ -6,9 +6,7 @@ interface BookingDetails {
     [key: string]: number;
   };
   total: number;
-  paymentInfo: {
-    cardLastFour: string;
-  };
+  cardLastFour: string;
   email: string;
 }
 
@@ -83,7 +81,7 @@ export const sendBookingConfirmation = async (bookingDetails: BookingDetails) =>
           <div style="margin-bottom: 20px;">
             <h3 style="color: #2F5233;">Payment Details</h3>
             <p style="margin: 5px 0;">Total Paid: £${bookingDetails.total.toFixed(2)}</p>
-            <p style="margin: 5px 0;">Card ending in: ${bookingDetails.paymentInfo.cardLastFour}</p>
+            <p style="margin: 5px 0;">Card ending in: ${bookingDetails.cardLastFour}</p>
           </div>
         </div>
         
