@@ -13,8 +13,14 @@ export async function POST(request: Request) {
       );
     }
 
+    // Extract cardLastFour from paymentInfo and restructure the booking details
+    const emailBookingDetails = {
+      ...bookingDetails,
+      cardLastFour: bookingDetails.paymentInfo.cardLastFour
+    };
+
     // Send confirmation email
-    const result = await sendBookingConfirmation(bookingDetails);
+    const result = await sendBookingConfirmation(emailBookingDetails);
 
     return NextResponse.json(
       { success: true, messageId: result.messageId },
