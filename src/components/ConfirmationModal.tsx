@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -26,6 +27,22 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   if (!isOpen) return null;
 
   const [saveError, setSaveError] = React.useState<string | null>(null);
+  const router = useRouter();
+
+  const handleClose = async () => {
+    try {
+      // Refresh user data to update navbar
+      const response = await fetch('/api/auth/me');
+      if (response.ok) {
+        onClose();
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Error refreshing user data:', error);
+      onClose();
+      router.push('/');
+    }
+  };
 
   React.useEffect(() => {
     if (isOpen) {
@@ -134,7 +151,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         </div>
 
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="mt-6 w-full bg-[var(--forest-green)] text-white py-2 px-4 rounded-md hover:bg-[var(--day-text)] transition-colors"
         >
           Close

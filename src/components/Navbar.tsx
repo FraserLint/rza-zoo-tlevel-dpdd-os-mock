@@ -34,7 +34,9 @@ export default function Navbar() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('/api/auth/me');
+        const response = await fetch('/api/auth/me', {
+          cache: 'no-store'
+        });
         if (response.ok) {
           const userData = await response.json();
           setUser({
@@ -65,7 +67,12 @@ export default function Navbar() {
     };
 
     checkAuth();
-  }, []);
+    
+    // Set up an interval to refresh data periodically
+    const refreshInterval = setInterval(checkAuth, 30000); // Refresh every 30 seconds
+
+    return () => clearInterval(refreshInterval); // Cleanup on unmount
+  }, [router]); // Add router as a dependency
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
