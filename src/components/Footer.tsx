@@ -6,7 +6,7 @@ export default function Footer() {
           Riget Zoo Adventures @ 2025 All Rights Reserved.
         </div>
         <div className="flex items-center gap-8 text-[var(--day-card)]">
-          <div>Contact Email: enquiries@rza.org</div>
+          <div>Contact Email: rza.enquiries@gmail.com</div>
           <div>Contact No: 0123 456 7891</div>
         </div>
       </div>
